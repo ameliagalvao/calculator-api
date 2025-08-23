@@ -1,5 +1,6 @@
-package org.example.calculatorapi;
+package org.example.calculatorapi.domain.operations;
 
+import org.example.calculatorapi.domain.OperationType;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -19,11 +20,11 @@ public class MathContext {
         this.strategies = Map.copyOf(map); // torna imutável
     }
 
-    public BigDecimal execute(OperationType type, BigDecimal a, BigDecimal b) {
+    public BigDecimal calculate(OperationType type, BigDecimal firstNumber, BigDecimal secondNumber) {
         var s = strategies.get(type);
         if (s == null) {
             throw new IllegalArgumentException("Unknown operation: " + type);
         }
-        return s.calculate(a, b);
+        return s.calculate(firstNumber, secondNumber);
     }
 }

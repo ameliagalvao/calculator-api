@@ -1,5 +1,6 @@
-package org.example.calculatorapi;
+package org.example.calculatorapi.domain.operations;
 
+import org.example.calculatorapi.domain.OperationType;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
 public class AddStrategy implements MathStrategy {
     @Override public OperationType type() { return OperationType.ADD; }
     @Override
-    public BigDecimal calculate(BigDecimal a, BigDecimal b) {
-        return a.add(b);
+    public BigDecimal calculate(BigDecimal firstNumber, BigDecimal secondNumber) {
+        return firstNumber.add(secondNumber);
     }
 }

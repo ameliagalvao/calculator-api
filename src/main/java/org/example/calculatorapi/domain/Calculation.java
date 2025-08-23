@@ -1,15 +1,16 @@
 package org.example.calculatorapi.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.example.calculatorapi.OperationType;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Calculation {
 
 @Id
@@ -29,6 +30,11 @@ private OperationType operation;
 @Column(nullable=false, precision = 38, scale = 10)
 private BigDecimal result;
 
-@Column(nullable=false, updatable=false)
-private Instant createdAt = Instant.now();
+@Column(nullable = false, updatable = false)
+private Instant createdAt;
+
+@PrePersist
+void onCreate() {
+    this.createdAt = Instant.now();
+}
 }

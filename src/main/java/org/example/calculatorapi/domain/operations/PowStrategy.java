@@ -1,5 +1,6 @@
-package org.example.calculatorapi;
+package org.example.calculatorapi.domain.operations;
 
+import org.example.calculatorapi.domain.OperationType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -11,15 +12,15 @@ import java.math.RoundingMode;
 public class PowStrategy implements MathStrategy {
     @Override public OperationType type() { return OperationType.POW; }
     @Override
-    public BigDecimal calculate(BigDecimal a, BigDecimal b) {
-        if (b == null || b.stripTrailingZeros().scale() > 0) {
+    public BigDecimal calculate(BigDecimal firstNumber, BigDecimal secondNumber) {
+        if (secondNumber == null || secondNumber.stripTrailingZeros().scale() > 0) {
             throw new ResponseStatusException(BAD_REQUEST, "Exponent must be an integer.");
         }
-        int exp = b.intValueExact();
+        int exp = secondNumber.intValueExact();
         if (exp >= 0) {
-            return a.pow(exp);
+            return firstNumber.pow(exp);
         } else {
-            BigDecimal positive = a.pow(Math.abs(exp));
+            BigDecimal positive = firstNumber.pow(Math.abs(exp));
             return BigDecimal.ONE.divide(positive, SCALE, RoundingMode.HALF_UP);
         }
     }
