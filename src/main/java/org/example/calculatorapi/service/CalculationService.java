@@ -62,10 +62,7 @@ public class CalculationService {
 
     private void validate(OperationType op, BigDecimal a, BigDecimal b) {
         if (op == null || a == null || b == null) {
-            throw new IllegalArgumentException("Parâmetros obrigatórios: operation, a, b");
-        }
-        if (op == OperationType.DIVIDE && b.compareTo(BigDecimal.ZERO) == 0) {
-            throw new IllegalArgumentException("Divisão por zero");
+            throw new IllegalArgumentException("Parâmetros obrigatórios: operation, firstNumber, secondNumber");
         }
     }
 }

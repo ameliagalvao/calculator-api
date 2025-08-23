@@ -1,5 +1,6 @@
 package org.example.calculatorapi.domain.operations;
 
+import org.example.calculatorapi.domain.InvalidExponentException;
 import org.example.calculatorapi.domain.OperationType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +15,7 @@ public class PowStrategy implements MathStrategy {
     @Override
     public BigDecimal calculate(BigDecimal firstNumber, BigDecimal secondNumber) {
         if (secondNumber == null || secondNumber.stripTrailingZeros().scale() > 0) {
-            throw new ResponseStatusException(BAD_REQUEST, "Exponent must be an integer.");
+            throw new InvalidExponentException();
         }
         int exp = secondNumber.intValueExact();
         if (exp >= 0) {
